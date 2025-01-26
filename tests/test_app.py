@@ -2,14 +2,14 @@ from http import HTTPStatus
 
 
 def test_read_root_deve_retornar_ok_e_ola_mundo(client):
-    response = client.get("/")  # Act (execução)
+    response = client.get('/')  # Act (execução)
 
     assert response.status_code == HTTPStatus.OK  # Assert (verificação)
-    assert response.json() == {"message": "Olá, mundo!"}
+    assert response.json() == {'message': 'Olá, mundo!'}
 
 
 def test_ola_mundo_html_deve_retornar_ola_mundo(client):
-    response = client.get("/olamundo")
+    response = client.get('/olamundo')
 
     assert response.status_code == HTTPStatus.OK
     assert (
@@ -29,32 +29,32 @@ def test_ola_mundo_html_deve_retornar_ola_mundo(client):
 
 def test_create_user(client):
     response = client.post(
-        "/users",
+        '/users',
         json={
-            "name": "XXXXX",
-            "email": "alice@example.com",
-            "password": "senha123",
+            'name': 'XXXXX',
+            'email': 'alice@example.com',
+            'password': 'senha123',
         },
     )
 
     assert response.status_code == HTTPStatus.CREATED
     assert response.json() == {
-        "name": "XXXXX",
-        "email": "alice@example.com",
-        "id": 1,
+        'name': 'XXXXX',
+        'email': 'alice@example.com',
+        'id': 1,
     }
 
 
 def test_read_users(client):
-    response = client.get("/users")
+    response = client.get('/users')
 
     assert response.status_code == HTTPStatus.OK
     assert response.json() == {
-        "users": [
+        'users': [
             {
-                "name": "XXXXX",
-                "email": "alice@example.com",
-                "id": 1,
+                'name': 'XXXXX',
+                'email': 'alice@example.com',
+                'id': 1,
             }
         ]
     }
@@ -62,23 +62,23 @@ def test_read_users(client):
 
 def test_update_user(client):
     response = client.put(
-        "/users/1",
+        '/users/1',
         json={
-            "name": "testeusername2",
-            "email": "alice@example.com",
-            "password": "senha123",
+            'name': 'testeusername2',
+            'email': 'alice@example.com',
+            'password': 'senha123',
         },
     )
 
     assert response.json() == {
-        "id": 1,
-        "name": "testeusername2",
-        "email": "alice@example.com",
+        'id': 1,
+        'name': 'testeusername2',
+        'email': 'alice@example.com',
     }
 
 
 def test_delete_user(client):
-    response = client.delete("/users/1")
+    response = client.delete('/users/1')
 
     assert response.status_code == HTTPStatus.OK
-    assert response.json() == {"message": "User deleted"}
+    assert response.json() == {'message': 'User deleted'}
